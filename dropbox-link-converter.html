@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dropbox MP4 Link Converter</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #1e272e;
+      color: #f5f6fa;
+      padding: 2rem;
+      max-width: 650px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      color: #00a8ff;
+    }
+
+    label {
+      font-weight: bold;
+      color: #dcdde1;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    input {
+      background-color: #2f3640;
+      color: #f5f6fa;
+    }
+
+    input:focus {
+      outline: none;
+      border: 1px solid #00a8ff;
+      box-shadow: 0 0 5px rgba(0, 168, 255, 0.5);
+    }
+
+    button {
+      background-color: #00a8ff;
+      color: white;
+      transition: background 0.3s ease;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0097e6;
+    }
+
+    .output {
+      background: #2f3640;
+      padding: 1rem;
+      border-radius: 8px;
+      word-break: break-word;
+      border: 1px solid #718093;
+    }
+
+    .copy-button {
+      background-color: #4cd137;
+      margin-top: 0.5rem;
+    }
+
+    .copy-button:hover {
+      background-color: #44bd32;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔗 Dropbox to .mp4 Direct Link Converter</h2>
+
+  <label for="dropboxLink">Paste your Dropbox share link:</label>
+  <input type="text" id="dropboxLink" placeholder="https://www.dropbox.com/scl/fi/...">
+
+  <button onclick="convertLink()">✨ Convert to Direct Link</button>
+
+  <h3>✅ Direct Link:</h3>
+  <div id="result" class="output"></div>
+  <button class="copy-button" onclick="copyLink()">📋 Copy Link</button>
+
+  <script>
+    function convertLink() {
+      const input = document.getElementById("dropboxLink").value.trim();
+      if (!input) {
+        document.getElementById("result").innerText = "⚠️ Please paste a Dropbox link.";
+        return;
+      }
+
+      const directLink = input
+        .replace("www.dropbox.com", "dl.dropboxusercontent.com")
+        .replace("&dl=0", "");
+
+      document.getElementById("result").innerText = directLink;
+    }
+
+    function copyLink() {
+      const text = document.getElementById("result").innerText;
+      if (!text.startsWith("http")) {
+        alert("⚠️ Nothing to copy yet!");
+        return;
+      }
+      navigator.clipboard.writeText(text)
+        .then(() => alert("✅ Link copied to clipboard!"))
+        .catch(() => alert("⚠️ Failed to copy link."));
+    }
+  </script>
+
+</body>
+</html>
